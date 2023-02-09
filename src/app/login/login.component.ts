@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         window.location.reload()
       },
       error: (err) => {
-        this.errorMessage = err.error.message
+        this.errorMessage = err.message
         this.isLoginFailed = true
       }
     })

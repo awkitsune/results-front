@@ -13,3 +13,8 @@ div.card-container{
 form{
     width: 300px;
 }
+div.alert-danger {
+    margin-top: 4px;
+    padding: 6px 16px;
+    border-radius: 4px;
+}
