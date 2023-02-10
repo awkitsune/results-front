@@ -1,0 +1,30 @@
+<div class="container card mt-2" *ngIf="selTaskId">
+    <body class="card-body">
+        <h4 class="card-title">Задача: </h4>
+        <div class="card-text">
+            <p>{{ task.taskContent }}</p>
+        </div>
+
+        <div>
+            <h6>Загрузить результат:</h6>
+            <div *ngIf="canUploadFile">
+                <form id="fileUploadForm">
+                    <input type="file" name="File" accept=".zip" id="fileUploadInput" (change)="onFileChange($event)" required>
+                    <button type="submit" (click)="onFileUpload($event)">Загрузить</button>
+                </form>
+                <div class="alert alert-danger" role="alert" *ngIf="fileUploadFailed">
+                    Произошла ошибка при загрузке файла
+                </div>
+            </div>
+            <div *ngIf="!canUploadFile">
+                <div class="alert alert-danger" role="alert" (click)="downloadAnswer()">
+                    Вы не можете загружать ответы на это задание! <br>
+                    Нажмите, чтобы скачать ваш ответ на задание
+                </div>
+            </div>
+
+        </div>
+
+        <small class="text-muted">{{ task.id }}</small>
+    </body>
+</div>

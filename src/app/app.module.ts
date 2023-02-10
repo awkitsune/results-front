@@ -13,6 +13,7 @@ import { BoardUserComponent } from './board-user/board-user.component';
 
 import {authInterceptorProviders} from './_helpers/auth.interceptor';
 import { RegisterComponent } from './register/register.component';
+import { TaskviewComponent } from './taskview/taskview.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RegisterComponent } from './register/register.component';
     ProfileComponent,
     BoardAdminComponent,
     BoardUserComponent,
-    RegisterComponent
+    RegisterComponent,
+    TaskviewComponent
   ],
   imports: [
     BrowserModule,

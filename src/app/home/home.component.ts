@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TasksService } from '../_services/tasks.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 import { UserService } from '../_services/user.service';
 
 @Component({
@@ -7,11 +9,19 @@ import { UserService } from '../_services/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  tasksList: any
+  isLoggedIn = false
   content?: string;
+  selectedTaskId: any
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private tasksService: TasksService,
+    private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken()
+
     this.userService.getPublicContent().subscribe({
       next: (data) => {
         this.content = data
@@ -20,6 +30,22 @@ export class HomeComponent implements OnInit {
         this.content = JSON.parse(err.error).message
       }
     })
+
+    if (this.isLoggedIn) {
+      this.tasksService.getTasksList().subscribe({
+        next: (data) => {
+          this.tasksList = JSON.parse(data)
+        },
+        error: (err) => {
+          this.content = JSON.parse(err.error).message
+        }
+      })
+    }
+
+  }
+
+  onTaskClick(event: any): void {
+    this.selectedTaskId = event.target.id
   }
 
 }
