@@ -1,26 +1,35 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
-    <header class="jumbotron">
-        <h3>
-            <strong>{{ currentUser.username}}</strong> Профиль
-        </h3>
-    </header>
-    <p>
-        <strong>Токен: </strong>
-        {{ currentUser.accessToken.substring(0, 20) }} ...
-        {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}    
-    </p>
-    <p>
-        <strong>Email:</strong>
-        {{ currentUser.email }}
-    </p>
-    <strong>Роли: </strong>
-    <ul>
-        <li *ngFor="let role of currentUser.roles">
-            {{ role }}
-        </li>
-    </ul>
+<div class="container">
+    <body class="mt-3">
+        <header class="card-title">
+            <h3>
+                Профиль пользователя <strong>{{ currentUser.username }}</strong> 
+            </h3>
+        </header>
+        
+        <div class="card me-auto" *ngIf="currentUser; else loggedOut">
+            <div class="card-body">
+                <p>
+                    <strong>Email:</strong>
+                    {{ currentUser.email }}
+                </p>
+                <strong>Роли: </strong>
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let role of currentUser.roles">
+                        {{ roleIdToRusString(role) }}
+                    </li>
+                </ul>
+            </div>
+           
+            <div class="card-footer">
+                {{ currentUser.accessToken.substring(0, 20) }} 
+                ...
+                {{ currentUser.accessToken.substr(currentUser.accessToken.length - 10) }}  
+                <span class="text-muted"><small>ваш токен сессии</small></span>  
+            </div>
+        </div>
+        
+        <ng-template #loggedOut>
+            Пожалуйста, войдите в аккаунт
+        </ng-template>
+    </body>
 </div>
-
-<ng-template #loggedOut>
-    Пожалуйста, войдите в аккаунт
-</ng-template>

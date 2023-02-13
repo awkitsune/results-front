@@ -15,10 +15,10 @@ export class FilesService {
     var formData = new FormData()
     formData.append("File", file)
 
-    return this.http.post(FILES_API + "upload", formData)
+    return this.http.post(FILES_API + "upload", formData, { responseType: 'text'})
   }
 
-  downloadFile(id: String): Observable<any> {
-    return this.http.get(FILES_API + "download/" + id )
+  downloadFile(id: String): string {
+    return FILES_API + "download/" + id
   }
 }

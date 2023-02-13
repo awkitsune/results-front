@@ -15,6 +15,14 @@ export class TaskanswersService {
 
   constructor(private http: HttpClient) {  }
 
+  getAnswersList(): Observable<any> {
+    return this.http.get(ANSWERS_API + "list")
+  }
+
+  getAnswerById(id: String): Observable<any> {
+    return this.http.get(ANSWERS_API + id)
+  }
+
   addAnswer(userId: String, taskId: String, file: String): Observable<any> {
     return this.http.post(ANSWERS_API + "add", {
       user: {
@@ -23,7 +31,7 @@ export class TaskanswersService {
       task: {
         id: taskId
       },
-      file
+      file: file
     }, httpOptions )
   }
 

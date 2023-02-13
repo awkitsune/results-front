@@ -1,7 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-form {
-    padding: 16px;
-}
 img.profile-img-card {
     width: 128px;
     border-radius: 50%;
@@ -10,10 +7,7 @@ div.card-container{
     align-items: center;
     padding-top: 32px;
 }
-form{
-    width: 300px;
-}
-div.alert-danger {
+div.alert {
     margin-top: 4px;
     padding: 6px 16px;
     border-radius: 4px;

@@ -9,15 +9,21 @@
             <h6>Загрузить результат:</h6>
             <div *ngIf="canUploadFile">
                 <form id="fileUploadForm">
-                    <input type="file" name="File" accept=".zip" id="fileUploadInput" (change)="onFileChange($event)" required>
-                    <button type="submit" (click)="onFileUpload($event)">Загрузить</button>
+                    <div class="input-group">
+                        <input 
+                         class="form-control" 
+                         type="file" name="File" 
+                         accept=".zip" id="fileUploadInput" 
+                         (change)="onFileChange($event)" required>
+                        <button class="btn btn-primary" type="submit" (click)="onFileUpload($event)">Загрузить</button>
+                    </div>
                 </form>
                 <div class="alert alert-danger" role="alert" *ngIf="fileUploadFailed">
                     Произошла ошибка при загрузке файла
                 </div>
             </div>
             <div *ngIf="!canUploadFile">
-                <div class="alert alert-danger" role="alert" (click)="downloadAnswer()">
+                <div class="alert alert-danger" role="alert" (click)="downloadAnswer($event)">
                     Вы не можете загружать ответы на это задание! <br>
                     Нажмите, чтобы скачать ваш ответ на задание
                 </div>

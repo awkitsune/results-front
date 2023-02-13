@@ -1,5 +1,8 @@
 <div class="container">
     <body class="mt-3">
+        <div *ngIf="!isLoggedIn">
+            <h3 class="m-auto">Войдите в профиль для начала работы</h3>
+        </div>
         <div *ngIf="isLoggedIn">
             <h3 >Доступные задачи:</h3>
             <ol class="list-group list-group-numbered mt-2">
