@@ -17,6 +17,7 @@ export class TaskviewComponent implements OnInit {
   selectedFile: any
   fileUploadFailed = false
   canUploadFile = false
+  lastUploadedId = ""
 
   constructor(
     private taskanswersService: TaskanswersService,
@@ -71,6 +72,7 @@ export class TaskviewComponent implements OnInit {
           .subscribe({
           next: (data) => {
             this.fileUploadFailed = false
+            this.canUploadFile = false
           },
           error: (err) => {
             this.fileUploadFailed = true
@@ -86,14 +88,5 @@ export class TaskviewComponent implements OnInit {
 
   onFileChange(event: any): void {
     this.selectedFile = event.target.files[0]
-  }
-
-  downloadAnswer(event: any) {
-    console.log(this.filesService.downloadFile(event.target.id))
-    const a = document.createElement('a')
-    a.href = this.filesService.downloadFile(event.target.id)
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
   }
 }

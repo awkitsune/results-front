@@ -3,23 +3,22 @@
         <div *ngIf="!isLoggedIn">
             <h3 class="m-auto">Войдите в профиль для начала работы</h3>
         </div>
-        <div *ngIf="isLoggedIn">
+        <div class="row mb-4" *ngIf="isLoggedIn">
             <h3 >Доступные задачи:</h3>
-            <ol class="list-group list-group-numbered mt-2">
-                <li 
-                 class="list-group-item-action list-group-item d-flex justify-content-between align-items-start" 
-                 *ngFor="let task of tasksList" 
-                 id="{{ task.id }}" 
-                 (click)="onTaskClick($event)">
-                    <div class="ms-2 me-auto" id="{{ task.id }}">
-                        {{ task.taskContent }}
-                    </div>
-                </li>
-            </ol>
+
+            <div class="col-md">
+                <ol class="list-group list-group-numbered mt-2">
+                    <li 
+                     class="list-group-item-action list-group-item d-flex justify-content-between align-items-start" 
+                     *ngFor="let task of tasksList" 
+                     id="{{ task.id }}" 
+                     (click)="onTaskClick($event)">
+                        <div class="ms-2 me-auto wrapped" id="{{ task.id }}" [innerHTML]="trimString(task.taskContent)"></div>
+                    </li>
+                </ol>
+            </div>
+
+            <app-taskview class="col-md-7" [selTaskId]="selectedTaskId"></app-taskview>
         </div>
-
-        <app-taskview [selTaskId]="selectedTaskId"></app-taskview>
     </body>
-
-
 </div>

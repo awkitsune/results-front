@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   isLoggedIn = false
   content?: string;
   selectedTaskId: any
+  maxTrimmedLength = 120
 
   constructor(
     private userService: UserService,
@@ -46,6 +47,11 @@ export class HomeComponent implements OnInit {
 
   onTaskClick(event: any): void {
     this.selectedTaskId = event.target.id
+  }
+
+  trimString(str: string): string {
+    var newStr = str.substring(0, this.maxTrimmedLength);
+    return newStr.substring(0, Math.min(newStr.length, newStr.lastIndexOf(" "))) + '...'
   }
 
 }

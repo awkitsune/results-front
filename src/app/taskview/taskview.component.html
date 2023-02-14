@@ -2,10 +2,10 @@
     <body class="card-body">
         <h4 class="card-title">Задача: </h4>
         <div class="card-text">
-            <p>{{ task.taskContent }}</p>
+            <div class="wrapped" [innerHTML]="task.taskContent"></div>
         </div>
 
-        <div>
+        <div class="mt-2">
             <h6>Загрузить результат:</h6>
             <div *ngIf="canUploadFile">
                 <form id="fileUploadForm">
@@ -23,9 +23,8 @@
                 </div>
             </div>
             <div *ngIf="!canUploadFile">
-                <div class="alert alert-danger" role="alert" (click)="downloadAnswer($event)">
-                    Вы не можете загружать ответы на это задание! <br>
-                    Нажмите, чтобы скачать ваш ответ на задание
+                <div class="alert alert-danger" role="alert">
+                    Вы не можете загружать ответы на это задание! 
                 </div>
             </div>
 

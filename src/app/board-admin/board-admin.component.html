@@ -8,9 +8,9 @@
                  *ngFor="let answer of taskAnswersList">
                     <div class="ms-2 me-auto mt-1">
                         <h5 class="mb-1">Ответ пользователя {{ answer.user.username }}</h5>
-                        <div class="mb-2 mt-2 p-2 card">
+                        <div class="mb-2 mt-2 p-2 card"> 
                             <h6>Текст задачи: </h6>
-                            {{ answer.task.taskContent }} 
+                            <div [innerHTML]=answer.task.taskContent></div> 
                             <br>
                             <small class="text-muted">{{ answer.task.id }}</small>
                         </div>
