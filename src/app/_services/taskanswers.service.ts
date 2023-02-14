@@ -35,8 +35,16 @@ export class TaskanswersService {
     }, httpOptions )
   }
 
-  checkAnswerExistence(userId: String, taskId: String): Observable<any> {
-    return this.http.post(ANSWERS_API + "exists", {
+  updateAnswer(answerId: String, mark: Number): Observable<any> {
+    return this.http.put(ANSWERS_API + "update/" + answerId, {
+      mark: mark
+    }, httpOptions )
+  }
+
+
+
+  filteredList(userId: String, taskId: String): Observable<any> {
+    return this.http.post(ANSWERS_API + "filteredlist", {
       userId,
       taskId
     }, httpOptions )

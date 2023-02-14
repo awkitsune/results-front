@@ -1,26 +1,53 @@
 <div class="container">
     <body class="mt-3">
         <div>
-            <h3 >Доступные ответы:</h3>
+            <h3>Доступные ответы:</h3>
+            <div class="form-check form-switch">
+                <input 
+                 class="form-check-input" 
+                 type="checkbox" 
+                 id="flexCheckDefault"
+                 [checked]="allowChangeResult"
+                 (change)="allowChangeResult = !allowChangeResult">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Разрешить изменять оценку
+                </label>
+            </div>
+
             <ol class="list-group mt-2">
                 <li 
                  class="list-group-item list-group-item d-flex justify-content-start align-items-start" 
                  *ngFor="let answer of taskAnswersList">
-                    <div class="ms-2 me-auto mt-1">
+                    <div class="card-body mt-1">
                         <h5 class="mb-1">Ответ пользователя {{ answer.user.username }}</h5>
-                        <div class="mb-2 mt-2 p-2 card"> 
-                            <h6>Текст задачи: </h6>
-                            <div [innerHTML]=answer.task.taskContent></div> 
-                            <br>
-                            <small class="text-muted">{{ answer.task.id }}</small>
-                        </div>
-                        <button class="btn btn-primary" id="{{ answer.file }}" (click)="onAnswerClick($event)">
-                            Скачать файл с ответом 
-                        </button>
-                        <div class="mt-2">
-                            <small class="text-muted">
-                                {{ answer.id }}
-                            </small>
+                        <small class="text-muted">{{ answer.dateTime | date : 'medium'}}</small>
+
+                        <div class="mt-1 mb-1">
+                            <span class="text-muted" *ngIf="answer.mark > 0">Баллов: </span>
+                            {{ getMarkTextFromNum(answer.mark) }}
+                        </div> 
+
+                        <div *ngIf="answer.mark >= 0 && allowChangeResult || answer.mark < 0">
+                            <div class="mb-2 mt-2 p-2 card"> 
+                                <h6>Текст задачи: </h6>
+                                <div [innerHTML]=answer.task.taskContent></div> 
+                                <small class="text-muted">{{ answer.task.id }}</small>
+                            </div>
+    
+                            <div class=" ms-0 me-0 ">
+                                <button class="btn btn-primary me-1" id="{{ answer.file }}" (click)="onAnswerClick($event)">
+                                    Скачать файл с ответом 
+                                </button>
+                                <button class="btn btn-primary" id="{{ answer.id }}" (click)="onMarkClick($event)">
+                                    Оценить 
+                                </button>
+                            </div>
+    
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    {{ answer.id }}
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </li>

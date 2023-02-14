@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { formatDate } from '@angular/common';
 import { FilesService } from '../_services/files.service';
 import { TaskanswersService } from '../_services/taskanswers.service';
 import { TasksService } from '../_services/tasks.service';
@@ -16,8 +17,8 @@ export class TaskviewComponent implements OnInit {
   task: any
   selectedFile: any
   fileUploadFailed = false
-  canUploadFile = false
   lastUploadedId = ""
+  lastResultPresent: any
 
   constructor(
     private taskanswersService: TaskanswersService,
@@ -43,17 +44,7 @@ export class TaskviewComponent implements OnInit {
         }
       })
 
-      this.taskanswersService.checkAnswerExistence(
-        this.tokenStorageService.getUser().id,
-        this.selTaskId).subscribe({
-          next: (data) => {
-            this.canUploadFile = data
-            this.canUploadFile = !this.canUploadFile
-          },
-          error: (err) => {
-            this.task = JSON.parse(err.error).message
-          }
-      })
+      this.updateResultData()
     }
   }
 
@@ -72,7 +63,7 @@ export class TaskviewComponent implements OnInit {
           .subscribe({
           next: (data) => {
             this.fileUploadFailed = false
-            this.canUploadFile = false
+            this.updateResultData()
           },
           error: (err) => {
             this.fileUploadFailed = true
@@ -80,13 +71,31 @@ export class TaskviewComponent implements OnInit {
         })
       },
       error: (err) => {
-        console.log(err)
         this.fileUploadFailed = true
       }
     })   
   }
 
+  updateResultData() {
+    this.taskanswersService.filteredList(
+      this.tokenStorageService.getUser().id,
+      this.selTaskId).subscribe({
+        next: (data) => {
+          this.lastResultPresent = data
+          if (data.length == 0) this.lastResultPresent = false
+        },
+        error: (err) => {
+          this.task = JSON.parse(err.error).message
+        }
+    })
+  }
+
   onFileChange(event: any): void {
     this.selectedFile = event.target.files[0]
+  }
+
+  getMarkTextFromNum(number: Number): string {
+    if (number < 0.0) return 'Попытка не оценена'
+    return number.toString()
   }
 }

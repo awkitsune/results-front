@@ -5,26 +5,33 @@
             <div class="wrapped" [innerHTML]="task.taskContent"></div>
         </div>
 
-        <div class="mt-2">
+        <div class="mt-2 mb-2">
             <h6>Загрузить результат:</h6>
-            <div *ngIf="canUploadFile">
+            <div>
                 <form id="fileUploadForm">
                     <div class="input-group">
                         <input 
                          class="form-control" 
                          type="file" name="File" 
-                         accept=".zip" id="fileUploadInput" 
+                         accept=".zip, .cs, .java, .kt, .py, .go, .c, .cpp, .pas, .txt" id="fileUploadInput" 
                          (change)="onFileChange($event)" required>
                         <button class="btn btn-primary" type="submit" (click)="onFileUpload($event)">Загрузить</button>
                     </div>
                 </form>
-                <div class="alert alert-danger" role="alert" *ngIf="fileUploadFailed">
+                <div class="alert alert-danger mb-0" role="alert" *ngIf="fileUploadFailed">
                     Произошла ошибка при загрузке файла
                 </div>
             </div>
-            <div *ngIf="!canUploadFile">
-                <div class="alert alert-danger" role="alert">
-                    Вы не можете загружать ответы на это задание! 
+            <div *ngIf="lastResultPresent">
+                <div class="mb-0 mt-2" role="alert">
+                    <h5>Ваши предыдущие ответы: </h5>
+                    <ol class="list-group">
+                        <li *ngFor="let item of lastResultPresent" class="list-group-item">
+                            <small class="text-muted">{{ item.dateTime | date : 'medium'}}</small> <br>
+                            <span class="text-muted" *ngIf="item.mark > 0">Баллов: </span>
+                            {{ getMarkTextFromNum(item.mark) }}
+                        </li>
+                    </ol>
                 </div>
             </div>
 
