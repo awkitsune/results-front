@@ -15,3 +15,10 @@ div.alert {
 wrapped {
     white-space: pre-wrap;
 }
+th.vertical {
+    transform: rotate(180deg);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+
