@@ -14,7 +14,7 @@
                 </label>
             </div>
 
-            <ol class="list-group mt-2">
+            <ol class="list-group mt-2 mb-4">
                 <li 
                  class="list-group-item list-group-item d-flex justify-content-start align-items-start" 
                  *ngFor="let answer of taskAnswersList">
@@ -42,12 +42,11 @@
                                     Оценить 
                                 </button>
                             </div>
-    
-                            <div class="mt-2">
-                                <small class="text-muted">
-                                    {{ answer.id }}
-                                </small>
-                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <small class="text-muted">
+                                {{ answer.id }}
+                            </small>
                         </div>
                     </div>
                 </li>
